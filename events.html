@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FeastFlex Catering - Events & Veranstaltungen</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Events-spezifische Styles -->
+    <style>
+        /* Events Hero Anpassungen */
+        .hero.events-hero {
+            background: linear-gradient(rgba(39, 174, 96, 0.8), rgba(39, 174, 96, 0.9)), url('/api/placeholder/1200/600') center/cover no-repeat;
+        }
+
+        /* Animationseffekte für Event-Cards */
+        .event-full-card {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .event-full-card.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scroll-Down Styles */
+        .scroll-down-container {
+            margin-top: 2.5rem;
+            text-align: center;
+        }
+        
+        .scroll-down {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .scroll-down span {
+            margin-bottom: 0.7rem;
+        }
+        
+        .scroll-down i {
+            font-size: 1.2rem;
+            animation: bounce 2s infinite;
+        }
+        
+        .scroll-down:hover {
+            transform: translateY(5px);
+            color: var(--accent-color);
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Events Seiten-spezifische Styles */
+        .event-full-card {
+            display: flex;
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-bottom: 3.5rem;
+        }
+
+        .event-full-card:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .event-full-image {
+            flex: 1;
+            min-height: 350px;
+            position: relative;
+        }
+
+        .event-full-image img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .event-full-content {
+            flex: 1;
+            padding: 3rem;
+        }
+
+        .event-full-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .event-full-card h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.2rem;
+            color: var(--dark-color);
+        }
+
+        .event-full-features {
+            margin: 2rem 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .feature-item i {
+            color: var(--primary-color);
+            margin-right: 1rem;
+        }
+
+        /* Galerie Styles */
+        .gallery-section {
+            background-color: var(--light-gray);
+            padding: 6rem 0;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-auto-rows: 280px;
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            color: white;
+            padding: 1.2rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        .gallery-caption h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        /* Größere Galerie-Items */
+        .gallery-item.large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        /* Testimonials für Events */
+        .event-testimonials {
+            background-color: white;
+            padding: 6rem 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: var(--light-gray);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            position: relative;
+        }
+
+        .testimonial-card:before {
+            content: '\201C';
+            font-family: Georgia, serif;
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            font-size: 5rem;
+            color: var(--primary-color);
+            opacity: 0.3;
+        }
+
+        .testimonial-content {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-author img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            margin-bottom: 0.2rem;
+            font-size: 1.1rem;
+        }
+
+        .author-info p {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        /* CTA Anpassungen */
+        .event-cta-section {
+            background: linear-gradient(rgba(46, 204, 113, 0.9), rgba(39, 174, 96, 0.9)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            padding: 6rem 0;
+        }
+
+        /* FAQ Abschnitt */
+        .faq-section {
+            background-color: var(--light-gray);
+            padding: 6rem 0;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .faq-question h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0;
+            font-weight: 600;
+        }
+
+        .faq-question i {
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq-item.active .faq-question {
+            background-color: var(--light-gray);
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+
+        /* Responsive Styles für die Events Seite */
+        @media (max-width: 768px) {
+            .event-full-card {
+                flex-direction: column;
+            }
+
+            .event-full-card:nth-child(even) {
+                flex-direction: column;
+            }
+
+            .event-full-image {
+                min-height: 250px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                grid-auto-rows: 240px;
+            }
+
+            .gallery-item.large {
+                grid-column: span 1;
+                grid-row: span 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>FeastFlex</h1>
+                <p>Catering & Food Services</p>
+            </div>
+            <nav>
+                <ul class="main-nav">
+                    <li><a href="index.html">Startseite</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="events.html" class="active">Events</a></li>
+                    <li><a href="about.html">Über uns</a></li>
+                    <li><a href="contact.html" class="cta-button">Kontakt</a></li>
+                </ul>
+                <div class="mobile-nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero events-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Events & Veranstaltungen</h2>
+                <p>Maßgeschneiderte Catering-Lösungen für Ihren besonderen Anlass</p>
+                <div class="scroll-down-container">
+                    <a href="#events" class="scroll-down">
+                        <span>Mehr erfahren</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="events-full" id="events">
+        <div class="container">
+            <div class="section-header">
+                <h2>Für jeden Anlass</h2>
+                <p>Entdecken Sie unsere spezialisierten Catering-Lösungen</p>
+            </div>
+
+            <!-- Firmenfeiern -->
+            <div class="event-full-card" id="corporate">
+                <div class="event-full-image">
+                    <img src="/api/placeholder/800/500" alt="Firmenfeiern">
+                </div>
+                <div class="event-full-content">
+                    <div class="event-full-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h2>Firmenfeiern</h2>
+                    <p>Beeindrucken Sie Ihre Mitarbeiter und Geschäftspartner mit erstklassigem Catering für Ihre Firmenveranstaltung. Von kleinen Meetings bis zu großen Firmenjubiläen – wir bieten maßgeschneiderte Lösungen, die Ihre Unternehmenskultur widerspiegeln und jeden Anlass zu einem besonderen Erlebnis machen.</p>
+                    
+                    <div class="event-full-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Firmenjubiläen und Jahresfeierlichkeiten</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Konferenzen, Meetings und Tagungen</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Produktpräsentationen und Launch-Events</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Teambuilding-Events und Betriebsfeiern</span>
+                        </div>
+                    </div>
+                    
+                    <a href="contact.html" class="btn primary-btn">Anfrage stellen</a>
+                </div>
+            </div>
+
+            <!-- Privatfeiern -->
+            <div class="event-full-card" id="private">
+                <div class="event-full-image">
+                    <img src="/api/placeholder/800/500" alt="Privatfeiern">
+                </div>
+                <div class="event-full-content">
+                    <div class="event-full-icon">
+                        <i class="fas fa-glass-cheers"></i>
+                    </div>
+                    <h2>Privatfeiern</h2>
+                    <p>Genießen Sie Ihre private Feier ohne Stress und Sorgen. Wir kümmern uns um das kulinarische Wohl Ihrer Gäste, während Sie sich voll und ganz auf Ihre Feier und Ihre Gäste konzentrieren können. Von intimen Dinnerpartys bis zu großen Jubiläumsfeiern – wir machen Ihre privaten Momente unvergesslich.</p>
+                    
+                    <div class="event-full-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Geburtstage und Jubiläen</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Hochzeiten und Verlobungsfeiern</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Familienfeste und Gartenpartys</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Intime Dinnerpartys im kleinen Kreis</span>
+                        </div>
+                    </div>
+                    
+                    <a href="contact.html" class="btn primary-btn">Anfrage stellen</a>
+                </div>
+            </div>
+
+            <!-- Festivals & Events -->
+            <div class="event-full-card" id="festivals">
+                <div class="event-full-image">
+                    <img src="/api/placeholder/800/500" alt="Festivals & Events">
+                </div>
+                <div class="event-full-content">
+                    <div class="event-full-icon">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <h2>Festivals & Öffentliche Events</h2>
+                    <p>Unser Food Truck und unsere mobilen Catering-Lösungen sind perfekt für große öffentliche Veranstaltungen. Wir versorgen Ihre Besucher mit köstlichen Speisen, die schnell serviert werden können, ohne Kompromisse bei der Qualität einzugehen. Mit unserer Erfahrung in der Bewirtung großer Menschenmengen sorgen wir für reibungslose Abläufe.</p>
+                    
+                    <div class="event-full-features">
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Musik- und Kulturfestivals</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Stadtfeste und Marktveranstaltungen</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Sportveranstaltungen und Turniere</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Messen und Ausstellungen</span>
+                        </div>
+                    </div>
+                    
+                    <a href="contact.html" class="btn primary-btn">Anfrage stellen</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-section" id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2>Event-Galerie</h2>
+                <p>Eindrücke von unseren Veranstaltungen</p>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item large">
+                    <img src="/api/placeholder/600/600" alt="Firmenevent">
+                    <div class="gallery-caption">
+                        <h4>Jahresfeier TechCorp GmbH</h4>
+                        <p>Full-Service Catering für 150 Personen</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/400" alt="Hochzeit">
+                    <div class="gallery-caption">
+                        <h4>Sommerhochzeit</h4>
+                        <p>Mediterranes Buffet</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/400" alt="Food Truck Festival">
+                    <div class="gallery-caption">
+                        <h4>Stadtfest Stuttgart</h4>
+                        <p>Food Truck Service</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/400" alt="Geburtstag">
+                    <div class="gallery-caption">
+                        <h4>50. Geburtstag</h4>
+                        <p>Elegantes Buffet mit Service</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/400/400" alt="Produktpräsentation">
+                    <div class="gallery-caption">
+                        <h4>Produktlaunch</h4>
+                        <p>Fingerfood & Champagner</p>
+                    </div>
+                </div>
+                <div class="gallery-item large">
+                    <img src="/api/placeholder/600/600" alt="Sommerfestival">
+                    <div class="gallery-caption">
+                        <h4>Sommerfestival</h4>
+                        <p>Street Food für 2000+ Besucher</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="event-testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Das sagen unsere Kunden</h2>
+                <p>Erfahrungen von zufriedenen Event-Kunden</p>
+            </div>
+            
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "FeastFlex hat unsere Firmenfeier zu einem kulinarischen Highlight gemacht. Die Vielfalt der Speisen und der professionelle Service haben alle begeistert! Besonders die Flexibilität bei kurzfristigen Änderungen hat uns überzeugt."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="/api/placeholder/100/100" alt="Sabine Meyer">
+                        <div class="author-info">
+                            <h4>Sabine Meyer</h4>
+                            <p>Eventmanagerin, TechCorp GmbH</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "Der Food Truck war der absolute Hit auf unserem Stadtfest. Die mexikanischen Spezialitäten waren hervorragend und das Team war super freundlich! Trotz des großen Andrangs lief alles reibungslos."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="/api/placeholder/100/100" alt="Michael Schneider">
+                        <div class="author-info">
+                            <h4>Michael Schneider</h4>
+                            <p>Veranstalter, Sommerfestival Stuttgart</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        "Wir hatten FeastFlex für unsere Hochzeit gebucht und es war die beste Entscheidung! Das Buffet war wunderschön arrangiert und hat fantastisch geschmeckt. Unsere Gäste schwärmen heute noch davon."
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="/api/placeholder/100/100" alt="Laura & Thomas Müller">
+                        <div class="author-info">
+                            <h4>Laura & Thomas Müller</h4>
+                            <p>Hochzeitspaar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2>Häufig gestellte Fragen</h2>
+                <p>Antworten auf Ihre Fragen rund um Event-Catering</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Welche Eventgrößen können Sie bewirtschaften?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Wir sind flexibel und können Veranstaltungen jeder Größe bewirtschaften – von intimen Dinnerpartys mit 10 Personen bis hin zu großen Festivals mit mehreren tausend Besuchern. Für kleinere Events bieten wir unseren exklusiven Buffet-Service, für größere Veranstaltungen können wir mit mehreren Food Trucks und/oder Verpflegungsstationen arbeiten.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Können Sie auch kurzfristig für Events gebucht werden?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Grundsätzlich empfehlen wir eine Buchung 2-3 Monate im Voraus, besonders in der Hochsaison. Für kleinere Events ist eine Vorlaufzeit von 3-4 Wochen in der Regel ausreichend. Wir versuchen jedoch, auch bei kurzfristigen Anfragen eine Lösung zu finden – kontaktieren Sie uns einfach, und wir prüfen die Verfügbarkeit.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Bieten Sie Unterstützung bei der Eventplanung an?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Ja, insbesondere für unsere Full-Service-Kunden bieten wir Unterstützung bei der Planung des kulinarischen Teils Ihrer Veranstaltung. Wir beraten Sie gerne zu Menüauswahl, Zeitplanung, Logistik und können bei Bedarf auch Kontakte zu anderen Dienstleistern (wie DJs, Fotografen, Eventlocations) vermitteln.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Wie gehen Sie mit besonderen Ernährungsbedürfnissen um?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Wir legen großen Wert darauf, dass alle Gäste kulinarisch verwöhnt werden. Daher bieten wir für jede Veranstaltung Optionen für vegetarische, vegane, glutenfreie, laktosefreie und andere spezielle Ernährungsbedürfnisse an. Teilen Sie uns einfach im Vorfeld mit, welche Anforderungen zu berücksichtigen sind.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Bieten Sie auch Getränkeservice für Events an?</h3>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Ja, wir bieten verschiedene Getränkepakete an, von einfachen Softdrink-Stationen bis hin zu voll ausgestatteten Bars mit professionellen Barkeepern. Sie können zwischen Pauschalen pro Person oder Abrechnung nach Verbrauch wählen. Auch alkoholfreie Alternativen und Spezialitäten wie frisch zubereitete Cocktails sind möglich.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="event-cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Planen Sie Ihr nächstes Event mit uns</h2>
+                <p>Kontaktieren Sie uns für ein persönliches Angebot oder vereinbaren Sie eine Beratung.</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn primary-btn">Angebot anfordern</a>
+                    <a href="tel:+4971112345678" class="btn secondary-btn"><i class="fas fa-phone"></i> +49 711 12345678</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <h2>FeastFlex</h2>
+                        <p>Catering & Food Services</p>
+                    </div>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> Hauptstraße 123, 70173 Stuttgart</p>
+                        <p><i class="fas fa-phone"></i> +49 711 12345678</p>
+                        <p><i class="fas fa-envelope"></i> info@feastflex.de</p>
+                    </div>
+                </div>
+                <div class="footer-nav">
+                    <div class="footer-nav-column">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="services.html#foodtruck">Food Truck</a></li>
+                            <li><a href="services.html#buffet">Buffet Service</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-column">
+                        <h3>Events</h3>
+                        <ul>
+                            <li><a href="events.html#corporate">Firmenfeiern</a></li>
+                            <li><a href="events.html#private">Privatfeiern</a></li>
+                            <li><a href="events.html#festivals">Festivals</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-column">
+                        <h3>Über uns</h3>
+                        <ul>
+                            <li><a href="about.html#team">Team</a></li>
+                            <li><a href="about.html#philosophy">Philosophie</a></li>
+                            <li><a href="about.html#sustainability">Nachhaltigkeit</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <h3>Folgen Sie uns</h3>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FeastFlex Catering. Alle Rechte vorbehalten.</p>
+                <div class="footer-legal">
+                    <a href="privacy.html">Datenschutz</a>
+                    <a href="imprint.html">Impressum</a>
+                    <a href="terms.html">AGB</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    // DOM Elements
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const mainNav = document.querySelector('.main-nav');
+    const eventFullCards = document.querySelectorAll('.event-full-card');
+    const faqItems = document.querySelectorAll('.faq-item');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    // Mobile Navigation Toggle
+    if (mobileNavToggle) {
+        mobileNavToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            
+            // Toggle hamburger icon to X
+            const spans = mobileNavToggle.querySelectorAll('span');
+            if (mainNav.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+    }
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (event) => {
+        if (mainNav && mainNav.classList.contains('active') && 
+            !mainNav.contains(event.target) && 
+            !mobileNavToggle.contains(event.target)) {
+            mainNav.classList.remove('active');
+            const spans = mobileNavToggle.querySelectorAll('span');
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        }
+    });
+
+    // FAQ Accordion Functionality
+    if (faqItems.length > 0) {
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                // Toggle active class on clicked item
+                item.classList.toggle('active');
+                
+                // Close other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+            });
+        });
+    }
+
+    // Add animation on scroll for event cards
+    function checkIfInView() {
+        eventFullCards.forEach(card => {
+            const cardTop = card.getBoundingClientRect().top;
+            const cardVisible = 150;
+            
+            if (cardTop < window.innerHeight - cardVisible) {
+                card.classList.add('animated');
+            }
+        });
+    }
+
+    // Check elements on load
+    window.addEventListener('load', checkIfInView);
+
+    // Check elements on scroll
+    window.addEventListener('scroll', checkIfInView);
+
+    // Gallery light effect on hover
+    if (galleryItems.length > 0) {
+        galleryItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                // Add light effect
+                galleryItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.style.opacity = '0.7';
+                    }
+                });
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                // Remove light effect
+                galleryItems.forEach(otherItem => {
+                    otherItem.style.opacity = '1';
+                });
+            });
+        });
+    }
+
+    // Sticky header effect
+    const header = document.querySelector('header');
+    let lastScrollTop = 0;
+
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > 100) {
+            header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+            header.style.padding = '0.7rem 0';
+        } else {
+            header.style.boxShadow = 'none';
+            header.style.padding = '1rem 0';
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (mainNav && mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    const spans = mobileNavToggle.querySelectorAll('span');
+                    spans[0].style.transform = 'none';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'none';
+                }
+            }
+        });
+    });
+    </script>
+</body>
+</html>
