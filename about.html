@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FeastFlex Catering - Über uns</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Hero-Bereich */
+        .about-hero {
+            background: linear-gradient(rgba(39, 174, 96, 0.8), rgba(39, 174, 96, 0.9)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            padding: 10rem 0;
+            position: relative;
+        }
+
+        /* Scroll-Down Button */
+        .scroll-down-container {
+            position: absolute;
+            bottom: 2rem;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+        
+        .scroll-down {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            transition: var(--transition);
+        }
+        
+        .scroll-down i {
+            margin-top: 0.7rem;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Über uns Hauptbereich */
+        .about-section {
+            padding: 6rem 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            width: 100%;
+        }
+
+        .about-image::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 3px solid var(--primary-color);
+            border-radius: 10px;
+            top: 20px;
+            left: 20px;
+            z-index: -1;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            color: var(--gray-color);
+            line-height: 1.8;
+        }
+
+        .mission-box {
+            background-color: var(--light-gray);
+            border-left: 4px solid var(--primary-color);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .mission-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .mission-box p {
+            font-style: italic;
+            margin-bottom: 0;
+        }
+
+        /* Team-Bereich */
+        .team-section {
+            background-color: var(--light-gray);
+            padding: 6rem 0;
+        }
+
+        .team-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .team-photo {
+            height: 320px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .team-member:hover .team-photo img {
+            transform: scale(1.1);
+        }
+
+        .team-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .team-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .team-info .position {
+            color: var(--primary-color);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .team-info p {
+            color: var(--gray-color);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .team-social {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .team-social a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .team-social a:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Werte-Bereich */
+        .values-section {
+            padding: 6rem 0;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+            border-bottom: 4px solid var(--primary-color);
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            background-color: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .value-card:hover .value-icon {
+            background-color: var(--primary-color);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .value-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .value-card p {
+            color: var(--gray-color);
+            line-height: 1.7;
+        }
+
+        /* Timeline-Bereich */
+        .timeline-section {
+            background-color: var(--light-gray);
+            padding: 6rem 0;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+            border-radius: 5px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -13px;
+            background-color: white;
+            border: 4px solid var(--primary-color);
+            top: 18px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .timeline-item.left {
+            left: 0;
+        }
+
+        .timeline-item.right {
+            left: 50%;
+        }
+
+        .timeline-item.right::after {
+            left: -13px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .timeline-content .date {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .timeline-content p {
+            margin-bottom: 0;
+            color: var(--gray-color);
+        }
+
+        /* Nachhaltigkeit-Bereich */
+        .sustainability-section {
+            padding: 6rem 0;
+        }
+
+        .sustainability-container {
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+
+        .sustainability-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .sustainability-icon {
+            min-width: 60px;
+            height: 60px;
+            background-color: var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-right: 1.5rem;
+        }
+
+        .sustainability-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .sustainability-content p {
+            color: var(--gray-color);
+            line-height: 1.7;
+            margin-bottom: 0;
+        }
+
+        /* CTA-Bereich */
+        .cta-section {
+            background: linear-gradient(rgba(46, 204, 113, 0.9), rgba(39, 174, 96, 0.9)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            padding: 6rem 0;
+            text-align: center;
+            color: white;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            .about-image::after {
+                display: none;
+            }
+
+            .timeline::after {
+                left: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-item.right {
+                left: 0;
+            }
+
+            .timeline-item::after {
+                left: 18px;
+                top: 18px;
+            }
+
+            .timeline-item.right::after {
+                left: 18px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <h1>FeastFlex</h1>
+                <p>Catering & Food Services</p>
+            </div>
+            <nav>
+                <ul class="main-nav">
+                    <li><a href="index.html">Startseite</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="events.html">Events</a></li>
+                    <li><a href="about.html" class="active">Über uns</a></li>
+                    <li><a href="contact.html" class="cta-button">Kontakt</a></li>
+                </ul>
+                <div class="mobile-nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero about-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Über uns</h2>
+                <p>Lernen Sie das Team und die Geschichte von FeastFlex kennen</p>
+            </div>
+            <div class="scroll-down-container">
+                <a href="#about" class="scroll-down">
+                    <span>Mehr erfahren</span>
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content">
+                    <h2>Unsere Geschichte</h2>
+                    <p>FeastFlex wurde 2018 von den Geschwistern Lisa und Markus Schmidt gegründet. Was als ein kleiner Food Truck für lokale Festivals begann, hat sich zu einem vielseitigen Catering-Unternehmen entwickelt, das heute verschiedene kulinarische Optionen für Events jeder Größe anbietet.</p>
+                    
+                    <div class="mission-box">
+                        <h3>Unsere Mission</h3>
+                        <p>"Wir möchten Menschen durch außergewöhnliche kulinarische Erlebnisse verbinden und jeden Anlass zu etwas Besonderem machen - mit Leidenschaft, Kreativität und höchster Qualität."</p>
+                    </div>
+                    
+                    <p>Von Anfang an stand für uns die Qualität der Zutaten und die Frische der Speisen im Vordergrund. Wir arbeiten eng mit lokalen Produzenten zusammen und legen großen Wert auf Nachhaltigkeit in unserem gesamten Arbeitsprozess.</p>
+                    
+                    <p>Heute besteht unser Team aus erfahrenen Küchenprofis, kreativen Köchen und engagierten Servicekräften, die alle dasselbe Ziel verfolgen: unvergessliche kulinarische Erlebnisse für unsere Kunden zu schaffen.</p>
+                </div>
+                <div class="about-image">
+                    <img src="/api/placeholder/600/400" alt="FeastFlex Geschichte">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section" id="team">
+        <div class="container">
+            <div class="section-header">
+                <h2>Unser Team</h2>
+                <p>Die Menschen hinter FeastFlex</p>
+            </div>
+            
+            <div class="team-container">
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="/api/placeholder/400/500" alt="Lisa Schmidt">
+                    </div>
+                    <div class="team-info">
+                        <h3>Lisa Schmidt</h3>
+                        <span class="position">Gründerin & Kreative Leitung</span>
+                        <p>Lisa ist verantwortlich für das kulinarische Konzept und die Entwicklung neuer Menüideen. Mit ihrer langjährigen Erfahrung als Köchin bringt sie Kreativität und Know-how in jedes unserer Projekte.</p>
+                        <div class="team-social">
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="/api/placeholder/400/500" alt="Markus Schmidt">
+                    </div>
+                    <div class="team-info">
+                        <h3>Markus Schmidt</h3>
+                        <span class="position">Gründer & Geschäftsführer</span>
+                        <p>Markus leitet die Geschäftsaktivitäten und ist verantwortlich für Logistik und Kundenbeziehungen. Seine Erfahrung im Eventmanagement hilft uns, reibungslose Abläufe zu gewährleisten.</p>
+                        <div class="team-social">
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="/api/placeholder/400/500" alt="Julia Weber">
+                    </div>
+                    <div class="team-info">
+                        <h3>Julia Weber</h3>
+                        <span class="position">Event-Koordinatorin</span>
+                        <p>Julia ist unsere Expertin für Eventplanung und -koordination. Mit ihrem Auge fürs Detail sorgt sie dafür, dass jede Veranstaltung perfekt geplant und umgesetzt wird.</p>
+                        <div class="team-social">
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="/api/placeholder/400/500" alt="Stefan Müller">
+                    </div>
+                    <div class="team-info">
+                        <h3>Stefan Müller</h3>
+                        <span class="position">Chefkoch</span>
+                        <p>Stefan ist unser talentierter Chefkoch mit über 15 Jahren Erfahrung in der Gastronomie. Er stellt sicher, dass jedes Gericht perfekt zubereitet wird und unseren hohen Qualitätsstandards entspricht.</p>
+                        <div class="team-social">
+                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="values-section" id="values">
+        <div class="container">
+            <div class="section-header">
+                <h2>Unsere Werte</h2>
+                <p>Prinzipien, die unser tägliches Handeln leiten</p>
+            </div>
+            
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Qualität</h3>
+                    <p>Wir verwenden ausschließlich frische, hochwertige Zutaten und legen größten Wert auf sorgfältige Zubereitung und ansprechende Präsentation. Unser Anspruch ist es, bei jedem Event kulinarische Höchstleistungen zu erbringen.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Kundenzufriedenheit</h3>
+                    <p>Unser Ziel ist es, die Erwartungen unserer Kunden nicht nur zu erfüllen, sondern zu übertreffen. Wir hören zu, beraten individuell und setzen Ihre Wünsche zuverlässig um.</p>
+                </div>
+                
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Nachhaltigkeit</h3>
+                    <p>Wir arbeiten bevorzugt mit regionalen Lieferanten zusammen, setzen auf umweltfreundliche Materialien und minimieren Lebensmittelabfälle. So leisten wir einen Beitrag zum Umweltschutz.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline-section" id="history">
+        <div class="container">
+            <div class="section-header">
+                <h2>Meilensteine</h2>
+                <p>Unser Weg von den Anfängen bis heute</p>
+            </div>
+            
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Die Anfänge</h3>
+                        <span class="date">Mai 2018</span>
+                        <p>Gründung von FeastFlex mit einem Food Truck und Teilnahme an ersten lokalen Festivals in Stuttgart.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Erweiterung</h3>
+                        <span class="date">März 2019</span>
+                        <p>Erweiterung des Angebots um Buffet-Service für private Feiern und kleinere Firmenevents.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Neue Zentrale</h3>
+                        <span class="date">Januar 2021</span>
+                        <p>Umzug in eine größere Produktionsküche und Büroräume im Herzen von Stuttgart.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Heute</h3>
+                        <span class="date">2025</span>
+                        <p>Ein Team von 15 Mitarbeitern und ein umfassendes Catering-Angebot für Events jeder Art und Größe.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sustainability-section" id="sustainability">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nachhaltigkeit</h2>
+                <p>Unser Engagement für die Umwelt</p>
+            </div>
+            
+            <div class="sustainability-container">
+                <div class="sustainability-item">
+                    <div class="sustainability-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="sustainability-content">
+                        <h3>Regionale Zutaten</h3>
+                        <p>Wir beziehen unsere Zutaten vorwiegend von lokalen Produzenten und Bauern aus der Region Stuttgart. Das reduziert Transportwege und unterstützt die lokale Landwirtschaft.</p>
+                    </div>
+                </div>
+                
+                <div class="sustainability-item">
+                    <div class="sustainability-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <div class="sustainability-content">
+                        <h3>Abfallvermeidung</h3>
+                        <p>Durch sorgfältige Planung und innovative Konzepte reduzieren wir Lebensmittelabfälle auf ein Minimum. Unvermeidbare Reste werden kompostiert oder an lokale Tafeln gespendet.</p>
+                    </div>
+                </div>
+                
+                <div class="sustainability-item">
+                    <div class="sustainability-icon">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="sustainability-content">
+                        <h3>Umweltfreundliche Materialien</h3>
+                        <p>Wir setzen auf biologisch abbaubare Verpackungen und verwenden, wo immer möglich, Mehrweggeschirr und -besteck, um Einwegplastik zu vermeiden.</p>
+                    </div>
+                </div>
+                
+                <div class="sustainability-item">
+                    <div class="sustainability-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <div class="sustainability-content">
+                        <h3>Saisonale Küche</h3>
+                        <p>Unsere Menüs orientieren sich am saisonalen Angebot. Das garantiert nicht nur Frische und Geschmack, sondern schont auch Ressourcen und CO2-Ausstoß.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Lernen Sie uns persönlich kennen</h2>
+                <p>Vereinbaren Sie ein unverbindliches Beratungsgespräch oder eine Verkostung.</p>
+                <div class="cta-buttons">
+                    <a href="contact.html" class="btn primary-btn">Kontakt aufnehmen</a>
+                    <a href="tel:+4971112345678" class="btn secondary-btn"><i class="fas fa-phone"></i> +49 711 12345678</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <h2>FeastFlex</h2>
+                        <p>Catering & Food Services</p>
+                    </div>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> Hauptstraße 123, 70173 Stuttgart</p>
+                        <p><i class="fas fa-phone"></i> +49 711 12345678</p>
+                        <p><i class="fas fa-envelope"></i> info@feastflex.de</p>
+                    </div>
+                </div>
+                <div class="footer-nav">
+                    <div class="footer-nav-column">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="services.html#foodtruck">Food Truck</a></li>
+                            <li><a href="services.html#buffet">Buffet Service</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-column">
+                        <h3>Events</h3>
+                        <ul>
+                            <li><a href="events.html#corporate">Firmenfeiern</a></li>
+                            <li><a href="events.html#private">Privatfeiern</a></li>
+                            <li><a href="events.html#festivals">Festivals</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-nav-column">
+                        <h3>Über uns</h3>
+                        <ul>
+                            <li><a href="about.html#team">Team</a></li>
+                            <li><a href="about.html#values">Werte</a></li>
+                            <li><a href="about.html#sustainability">Nachhaltigkeit</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-social">
+                    <h3>Folgen Sie uns</h3>
+                    <div class="social-icons">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FeastFlex Catering. Alle Rechte vorbehalten.</p>
+                <div class="footer-legal">
+                    <a href="privacy.html">Datenschutz</a>
+                    <a href="imprint.html">Impressum</a>
+<a href="terms.html">AGB</a>
+               </div>
+           </div>
+       </div>
+   </footer>
+
+   <script>
+   // DOM Elements
+   const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+   const mainNav = document.querySelector('.main-nav');
+
+   // Mobile Navigation Toggle
+   if (mobileNavToggle) {
+       mobileNavToggle.addEventListener('click', () => {
+           mainNav.classList.toggle('active');
+           
+           // Toggle hamburger icon to X
+           const spans = mobileNavToggle.querySelectorAll('span');
+           if (mainNav.classList.contains('active')) {
+               spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+               spans[1].style.opacity = '0';
+               spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+           } else {
+               spans[0].style.transform = 'none';
+               spans[1].style.opacity = '1';
+               spans[2].style.transform = 'none';
+           }
+       });
+   }
+
+   // Close mobile menu when clicking outside
+   document.addEventListener('click', (event) => {
+       if (mainNav && mainNav.classList.contains('active') && 
+           !mainNav.contains(event.target) && 
+           !mobileNavToggle.contains(event.target)) {
+           mainNav.classList.remove('active');
+           const spans = mobileNavToggle.querySelectorAll('span');
+           spans[0].style.transform = 'none';
+           spans[1].style.opacity = '1';
+           spans[2].style.transform = 'none';
+       }
+   });
+
+   // Sticky header effect
+   const header = document.querySelector('header');
+   let lastScrollTop = 0;
+
+   window.addEventListener('scroll', () => {
+       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+       
+       if (scrollTop > 100) {
+           header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+           header.style.padding = '0.7rem 0';
+       } else {
+           header.style.boxShadow = 'none';
+           header.style.padding = '1rem 0';
+       }
+       
+       lastScrollTop = scrollTop;
+   });
+
+   // Smooth scroll for anchor links
+   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+       anchor.addEventListener('click', function(e) {
+           e.preventDefault();
+           
+           const targetId = this.getAttribute('href');
+           if (targetId === '#') return;
+           
+           const targetElement = document.querySelector(targetId);
+           if (targetElement) {
+               window.scrollTo({
+                   top: targetElement.offsetTop - 80,
+                   behavior: 'smooth'
+               });
+               
+               // Close mobile menu if open
+               if (mainNav && mainNav.classList.contains('active')) {
+                   mainNav.classList.remove('active');
+                   const spans = mobileNavToggle.querySelectorAll('span');
+                   spans[0].style.transform = 'none';
+                   spans[1].style.opacity = '1';
+                   spans[2].style.transform = 'none';
+               }
+           }
+       });
+   });
+
+   // Animation on scroll
+   const animateOnScroll = () => {
+       const elements = document.querySelectorAll('.value-card, .team-member, .timeline-item');
+       
+       elements.forEach(element => {
+           const elementPosition = element.getBoundingClientRect().top;
+           const windowHeight = window.innerHeight;
+           
+           if (elementPosition < windowHeight - 100) {
+               element.style.opacity = '1';
+               element.style.transform = 'translateY(0)';
+           }
+       });
+   };
+
+   // Initial check on load
+   window.addEventListener('load', animateOnScroll);
+   
+   // Check on scroll
+   window.addEventListener('scroll', animateOnScroll);
+   </script>
+</body>
+</html>
