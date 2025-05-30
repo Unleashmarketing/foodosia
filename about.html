@@ -255,75 +255,107 @@
             line-height: 1.7;
         }
 
-        /* Timeline-Bereich - Kompakte Karten-Reihe */
+        /* Timeline-Bereich - Kompakte horizontale Timeline */
         .timeline-section {
             background-color: var(--light-gray);
             padding: 6rem 0;
         }
 
         .timeline {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 3rem auto 0;
-        }
-
-        .timeline-items {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .timeline-item {
-            background-color: white;
-            border-radius: 12px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
             position: relative;
-            overflow: hidden;
+            padding: 1rem 0;
         }
 
-        .timeline-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .timeline-item::before {
+        /* Hauptlinie */
+        .timeline::before {
             content: '';
             position: absolute;
-            top: 0;
+            top: 60px;
             left: 0;
             right: 0;
             height: 4px;
             background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+            z-index: 1;
+        }
+
+        .timeline-items {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        /* Timeline-Punkt */
+        .timeline-item::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border: 4px solid var(--primary-color);
+            border-radius: 50%;
+            position: absolute;
+            top: 50px;
+            z-index: 3;
+            transition: var(--transition);
+        }
+
+        .timeline-item:hover::before {
+            transform: scale(1.2);
+            box-shadow: 0 0 0 8px rgba(46, 204, 113, 0.2);
         }
 
         .timeline-content {
+            background-color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
             text-align: center;
+            width: 100%;
+            max-width: 250px;
+            margin-top: 80px;
+            transition: var(--transition);
+        }
+
+        .timeline-item:hover .timeline-content {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
         .timeline-content .date {
             display: inline-block;
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
             font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
         .timeline-content h3 {
-            font-size: 1.4rem;
-            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
             color: var(--dark-color);
         }
 
         .timeline-content p {
             margin-bottom: 0;
             color: var(--gray-color);
-            line-height: 1.6;
+            line-height: 1.5;
+            font-size: 0.9rem;
         }
 
         /* Nachhaltigkeit-Bereich */
@@ -405,6 +437,19 @@
 
             .timeline-items {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .timeline::before {
+                display: none;
+            }
+
+            .timeline-item::before {
+                display: none;
+            }
+
+            .timeline-content {
+                margin-top: 0;
             }
         }
 
@@ -416,6 +461,10 @@
             .timeline-items {
                 grid-template-columns: 1fr;
                 gap: 1rem;
+            }
+
+            .timeline-content {
+                max-width: 100%;
             }
         }
 
