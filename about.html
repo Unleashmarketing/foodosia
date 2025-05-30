@@ -57,38 +57,15 @@
             }
         }
 
-        /* Über uns Hauptbereich */
+        /* Über uns Hauptbereich - Zentriert ohne Seitenbild */
         .about-section {
             padding: 6rem 0;
         }
 
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-image {
-            position: relative;
-        }
-
-        .about-image img {
-            border-radius: 10px;
-            box-shadow: var(--shadow);
-            width: 100%;
-        }
-
-        .about-image::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 3px solid var(--primary-color);
-            border-radius: 10px;
-            top: 20px;
-            left: 20px;
-            z-index: -1;
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
         }
 
         .about-content h2 {
@@ -101,6 +78,8 @@
             margin-bottom: 1.5rem;
             color: var(--gray-color);
             line-height: 1.8;
+            font-size: 1.1rem;
+            text-align: left;
         }
 
         .mission-box {
@@ -109,6 +88,7 @@
             padding: 2rem;
             margin: 2rem 0;
             border-radius: 0 10px 10px 0;
+            text-align: left;
         }
 
         .mission-box h3 {
@@ -122,7 +102,7 @@
             margin-bottom: 0;
         }
 
-        /* Team-Bereich */
+        /* Team-Bereich - Nur 3 Personen */
         .team-section {
             background-color: var(--light-gray);
             padding: 6rem 0;
@@ -130,9 +110,12 @@
 
         .team-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
             margin-top: 3rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .team-member {
@@ -272,7 +255,7 @@
             line-height: 1.7;
         }
 
-        /* Timeline-Bereich */
+        /* Timeline-Bereich - Horizontal */
         .timeline-section {
             background-color: var(--light-gray);
             padding: 6rem 0;
@@ -280,28 +263,36 @@
 
         .timeline {
             position: relative;
-            max-width: 800px;
+            max-width: 1200px;
             margin: 3rem auto 0;
+            padding: 2rem 0;
         }
 
         .timeline::after {
             content: '';
             position: absolute;
-            width: 6px;
+            height: 6px;
             background-color: var(--primary-color);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -3px;
+            top: 50%;
+            left: 0;
+            right: 0;
+            transform: translateY(-3px);
             border-radius: 5px;
         }
 
-        .timeline-item {
-            padding: 10px 40px;
+        .timeline-items {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
             position: relative;
-            width: 50%;
-            box-sizing: border-box;
-            margin-bottom: 3rem;
+            z-index: 1;
+        }
+
+        .timeline-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .timeline-item::after {
@@ -309,32 +300,23 @@
             position: absolute;
             width: 25px;
             height: 25px;
-            right: -13px;
             background-color: white;
             border: 4px solid var(--primary-color);
-            top: 18px;
             border-radius: 50%;
-            z-index: 1;
-        }
-
-        .timeline-item.left {
-            left: 0;
-        }
-
-        .timeline-item.right {
+            top: 50%;
             left: 50%;
-        }
-
-        .timeline-item.right::after {
-            left: -13px;
+            transform: translate(-50%, -50%);
+            z-index: 2;
         }
 
         .timeline-content {
             padding: 20px;
             background-color: white;
-            position: relative;
             border-radius: 10px;
             box-shadow: var(--shadow);
+            text-align: center;
+            margin-top: 40px;
+            width: 100%;
         }
 
         .timeline-content h3 {
@@ -353,6 +335,7 @@
         .timeline-content p {
             margin-bottom: 0;
             color: var(--gray-color);
+            font-size: 0.95rem;
         }
 
         /* Nachhaltigkeit-Bereich */
@@ -427,40 +410,40 @@
 
         /* Responsive Styles */
         @media (max-width: 992px) {
-            .about-grid {
+            .team-container {
                 grid-template-columns: 1fr;
-                gap: 3rem;
+                max-width: 400px;
             }
 
-            .about-image {
-                order: -1;
-            }
-
-            .about-image::after {
-                display: none;
+            .timeline-items {
+                grid-template-columns: 1fr;
             }
 
             .timeline::after {
-                left: 31px;
+                display: none;
             }
 
-            .timeline-item {
-                width: 100%;
-                padding-left: 70px;
-                padding-right: 25px;
-            }
-
-            .timeline-item.right {
-                left: 0;
+            .timeline-content {
+                margin-top: 0;
             }
 
             .timeline-item::after {
-                left: 18px;
-                top: 18px;
+                position: relative;
+                top: auto;
+                left: auto;
+                transform: none;
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .team-container {
+                grid-template-columns: 1fr;
             }
 
-            .timeline-item.right::after {
-                left: 18px;
+            .timeline-items {
+                grid-template-columns: 1fr;
+                gap: 1rem;
             }
         }
 
@@ -513,23 +496,18 @@
 
     <section class="about-section" id="about">
         <div class="container">
-            <div class="about-grid">
-                <div class="about-content">
-                    <h2>Unsere Geschichte</h2>
-                    <p>FeastFlex wurde 2018 von den Geschwistern Lisa und Markus Schmidt gegründet. Was als ein kleiner Food Truck für lokale Festivals begann, hat sich zu einem vielseitigen Catering-Unternehmen entwickelt, das heute verschiedene kulinarische Optionen für Events jeder Größe anbietet.</p>
-                    
-                    <div class="mission-box">
-                        <h3>Unsere Mission</h3>
-                        <p>"Wir möchten Menschen durch außergewöhnliche kulinarische Erlebnisse verbinden und jeden Anlass zu etwas Besonderem machen - mit Leidenschaft, Kreativität und höchster Qualität."</p>
-                    </div>
-                    
-                    <p>Von Anfang an stand für uns die Qualität der Zutaten und die Frische der Speisen im Vordergrund. Wir arbeiten eng mit lokalen Produzenten zusammen und legen großen Wert auf Nachhaltigkeit in unserem gesamten Arbeitsprozess.</p>
-                    
-                    <p>Heute besteht unser Team aus erfahrenen Küchenprofis, kreativen Köchen und engagierten Servicekräften, die alle dasselbe Ziel verfolgen: unvergessliche kulinarische Erlebnisse für unsere Kunden zu schaffen.</p>
+            <div class="about-content">
+                <h2>Unsere Geschichte</h2>
+                <p>FeastFlex wurde 2018 von den Geschwistern Lisa und Markus Schmidt gegründet. Was als ein kleiner Food Truck für lokale Festivals begann, hat sich zu einem vielseitigen Catering-Unternehmen entwickelt, das heute verschiedene kulinarische Optionen für Events jeder Größe anbietet.</p>
+                
+                <div class="mission-box">
+                    <h3>Unsere Mission</h3>
+                    <p>"Wir möchten Menschen durch außergewöhnliche kulinarische Erlebnisse verbinden und jeden Anlass zu etwas Besonderem machen - mit Leidenschaft, Kreativität und höchster Qualität."</p>
                 </div>
-                <div class="about-image">
-                    <img src="/api/placeholder/600/400" alt="FeastFlex Geschichte">
-                </div>
+                
+                <p>Von Anfang an stand für uns die Qualität der Zutaten und die Frische der Speisen im Vordergrund. Wir arbeiten eng mit lokalen Produzenten zusammen und legen großen Wert auf Nachhaltigkeit in unserem gesamten Arbeitsprozess.</p>
+                
+                <p>Heute besteht unser Team aus erfahrenen Küchenprofis, kreativen Köchen und engagierten Servicekräften, die alle dasselbe Ziel verfolgen: unvergessliche kulinarische Erlebnisse für unsere Kunden zu schaffen.</p>
             </div>
         </div>
     </section>
@@ -565,21 +543,6 @@
                         <h3>Markus Schmidt</h3>
                         <span class="position">Gründer & Geschäftsführer</span>
                         <p>Markus leitet die Geschäftsaktivitäten und ist verantwortlich für Logistik und Kundenbeziehungen. Seine Erfahrung im Eventmanagement hilft uns, reibungslose Abläufe zu gewährleisten.</p>
-                        <div class="team-social">
-                            <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="team-member">
-                    <div class="team-photo">
-                        <img src="/api/placeholder/400/500" alt="Julia Weber">
-                    </div>
-                    <div class="team-info">
-                        <h3>Julia Weber</h3>
-                        <span class="position">Event-Koordinatorin</span>
-                        <p>Julia ist unsere Expertin für Eventplanung und -koordination. Mit ihrem Auge fürs Detail sorgt sie dafür, dass jede Veranstaltung perfekt geplant und umgesetzt wird.</p>
                         <div class="team-social">
                             <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                             <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -648,35 +611,37 @@
             </div>
             
             <div class="timeline">
-                <div class="timeline-item left">
-                    <div class="timeline-content">
-                        <h3>Die Anfänge</h3>
-                        <span class="date">Mai 2018</span>
-                        <p>Gründung von FeastFlex mit einem Food Truck und Teilnahme an ersten lokalen Festivals in Stuttgart.</p>
+                <div class="timeline-items">
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>Die Anfänge</h3>
+                            <span class="date">Mai 2018</span>
+                            <p>Gründung von FeastFlex mit einem Food Truck und Teilnahme an ersten lokalen Festivals in Stuttgart.</p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="timeline-item right">
-                    <div class="timeline-content">
-                        <h3>Erweiterung</h3>
-                        <span class="date">März 2019</span>
-                        <p>Erweiterung des Angebots um Buffet-Service für private Feiern und kleinere Firmenevents.</p>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>Erweiterung</h3>
+                            <span class="date">März 2019</span>
+                            <p>Erweiterung des Angebots um Buffet-Service für private Feiern und kleinere Firmenevents.</p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="timeline-item left">
-                    <div class="timeline-content">
-                        <h3>Neue Zentrale</h3>
-                        <span class="date">Januar 2021</span>
-                        <p>Umzug in eine größere Produktionsküche und Büroräume im Herzen von Stuttgart.</p>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>Neue Zentrale</h3>
+                            <span class="date">Januar 2021</span>
+                            <p>Umzug in eine größere Produktionsküche und Büroräume im Herzen von Stuttgart.</p>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="timeline-item right">
-                    <div class="timeline-content">
-                        <h3>Heute</h3>
-                        <span class="date">2025</span>
-                        <p>Ein Team von 15 Mitarbeitern und ein umfassendes Catering-Angebot für Events jeder Art und Größe.</p>
+                    
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <h3>Heute</h3>
+                            <span class="date">2025</span>
+                            <p>Ein Team von 15 Mitarbeitern und ein umfassendes Catering-Angebot für Events jeder Art und Größe.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -800,114 +765,112 @@
                 <div class="footer-legal">
                     <a href="privacy.html">Datenschutz</a>
                     <a href="imprint.html">Impressum</a>
-<a href="terms.html">AGB</a>
-               </div>
-           </div>
-       </div>
-   </footer>
+                    <a href="terms.html">AGB</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-   <script>
-   // DOM Elements
-   const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-   const mainNav = document.querySelector('.main-nav');
+    <script>
+    // DOM Elements
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const mainNav = document.querySelector('.main-nav');
 
-   // Mobile Navigation Toggle
-   if (mobileNavToggle) {
-       mobileNavToggle.addEventListener('click', () => {
-           mainNav.classList.toggle('active');
-           
-           // Toggle hamburger icon to X
-           const spans = mobileNavToggle.querySelectorAll('span');
-           if (mainNav.classList.contains('active')) {
-               spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-               spans[1].style.opacity = '0';
-               spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
-           } else {
-               spans[0].style.transform = 'none';
-               spans[1].style.opacity = '1';
-               spans[2].style.transform = 'none';
-           }
-       });
-   }
+    // Mobile Navigation Toggle
+    if (mobileNavToggle) {
+        mobileNavToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            
+            // Toggle hamburger icon to X
+            const spans = mobileNavToggle.querySelectorAll('span');
+            if (mainNav.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+    }
 
-   // Close mobile menu when clicking outside
-   document.addEventListener('click', (event) => {
-       if (mainNav && mainNav.classList.contains('active') && 
-           !mainNav.contains(event.target) && 
-           !mobileNavToggle.contains(event.target)) {
-           mainNav.classList.remove('active');
-           const spans = mobileNavToggle.querySelectorAll('span');
-           spans[0].style.transform = 'none';
-           spans[1].style.opacity = '1';
-           spans[2].style.transform = 'none';
-       }
-   });
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (event) => {
+        if (mainNav && mainNav.classList.contains('active') && 
+            !mainNav.contains(event.target) && 
+            !mobileNavToggle.contains(event.target)) {
+            mainNav.classList.remove('active');
+            const spans = mobileNavToggle.querySelectorAll('span');
+            spans[0].style.transform = 'none';
+            spans[1].style.opacity = '1';
+            spans[2].style.transform = 'none';
+        }
+    });
 
-   // Sticky header effect
-   const header = document.querySelector('header');
-   let lastScrollTop = 0;
+    // Sticky header effect
+    const header = document.querySelector('header');
+    let lastScrollTop = 0;
 
-   window.addEventListener('scroll', () => {
-       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-       
-       if (scrollTop > 100) {
-           header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
-           header.style.padding = '0.7rem 0';
-       } else {
-           header.style.boxShadow = 'none';
-           header.style.padding = '1rem 0';
-       }
-       
-       lastScrollTop = scrollTop;
-   });
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > 100) {
+            header.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.1)';
+            header.style.padding = '0.7rem 0';
+        } else {
+            header.style.boxShadow = 'none';
+            header.style.padding = '1rem 0';
+        }
+        
+        lastScrollTop = scrollTop;
+    });
 
-   // Smooth scroll for anchor links
-   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-       anchor.addEventListener('click', function(e) {
-           e.preventDefault();
-           
-           const targetId = this.getAttribute('href');
-           if (targetId === '#') return;
-           
-           const targetElement = document.querySelector(targetId);
-           if (targetElement) {
-               window.scrollTo({
-                   top: targetElement.offsetTop - 80,
-                   behavior: 'smooth'
-               });
-               
-               // Close mobile menu if open
-               if (mainNav && mainNav.classList.contains('active')) {
-                   mainNav.classList.remove('active');
-                   const spans = mobileNavToggle.querySelectorAll('span');
-                   spans[0].style.transform = 'none';
-                   spans[1].style.opacity = '1';
-                   spans[2].style.transform = 'none';
-               }
-           }
-       });
-   });
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                if (mainNav && mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    const spans = mobileNavToggle.querySelectorAll('span');
+                    spans[0].style.transform = 'none';
+                    spans[1].style.opacity = '1';
+                    spans[2].style.transform = 'none';
+                }
+            }
+        });
+    });
 
-   // Animation on scroll
-   const animateOnScroll = () => {
-       const elements = document.querySelectorAll('.value-card, .team-member, .timeline-item');
-       
-       elements.forEach(element => {
-           const elementPosition = element.getBoundingClientRect().top;
-           const windowHeight = window.innerHeight;
-           
-           if (elementPosition < windowHeight - 100) {
-               element.style.opacity = '1';
-               element.style.transform = 'translateY(0)';
-           }
-       });
-   };
+    // Animation on scroll
+    const animateOnScroll = () => {
+        const elements = document.querySelectorAll('.value-card, .team-member, .timeline-item');
+        
+        elements.forEach(element => {
+            const elementPosition = element.getBoundingClientRect().top;
+            const windowHeight = window.innerHeight;
+            
+            if (elementPosition < windowHeight - 100) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
+        });
+    };
 
-   // Initial check on load
-   window.addEventListener('load', animateOnScroll);
-   
-   // Check on scroll
-   window.addEventListener('scroll', animateOnScroll);
-   </script>
-</body>
-</html>
+    // Initial check on load
+    window.addEventListener('load', animateOnScroll);
+    
+    // Check on scroll
+    window.addEventListener('scroll', animateOnScroll);
+    </script>
